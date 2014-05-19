@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -12,12 +13,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 public class CalculatorActivity extends Activity {
 	private Button mBtnAdd;
 	private LinearLayout mLlReceived;
 	private EditText mEdtAmount;
 	private TextView mTvGiveChange;
-	
 	class Watcher implements TextWatcher {
 
 		@Override
@@ -36,7 +37,17 @@ public class CalculatorActivity extends Activity {
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			
+			try {
+				Double value = Double.valueOf(mEdtAmount.getText().toString());
+				for (int i = 0; i < mLlReceived.getChildCount(); i++) {
+					EditText e = (EditText) mLlReceived.getChildAt(i);
+					value -= Double.valueOf(e.getText().toString());
+				}
+				mTvGiveChange.setText(value + "");
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -54,6 +65,7 @@ public class CalculatorActivity extends Activity {
 				| InputType.TYPE_NUMBER_FLAG_SIGNED
 				| InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		mTvGiveChange = (TextView) findViewById(R.id.tvGiveChange);
+		mTvGiveChange.setText("");
 		mBtnAdd.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -64,7 +76,7 @@ public class CalculatorActivity extends Activity {
 						| InputType.TYPE_NUMBER_FLAG_DECIMAL);
 				mLlReceived.addView(newAmount);
 				newAmount.requestFocus();
-				newAmount.addTextChangedListener(new )
+				newAmount.addTextChangedListener(new Watcher());
 			}
 		});
 	}
