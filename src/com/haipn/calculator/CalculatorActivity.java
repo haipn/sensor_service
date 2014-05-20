@@ -1,13 +1,16 @@
 package com.haipn.calculator;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,6 +22,7 @@ public class CalculatorActivity extends Activity {
 	private LinearLayout mLlReceived;
 	private EditText mEdtAmount;
 	private TextView mTvGiveChange;
+	private Button mBtnNewPayment;
 	class Watcher implements TextWatcher {
 
 		@Override
@@ -43,7 +47,7 @@ public class CalculatorActivity extends Activity {
 					EditText e = (EditText) mLlReceived.getChildAt(i);
 					value -= Double.valueOf(e.getText().toString());
 				}
-				mTvGiveChange.setText(value + "");
+				mTvGiveChange.setText(new DecimalFormat("##.##").format(value) + "");
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -66,6 +70,18 @@ public class CalculatorActivity extends Activity {
 				| InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		mTvGiveChange = (TextView) findViewById(R.id.tvGiveChange);
 		mTvGiveChange.setText("");
+		mBtnNewPayment = (Button) findViewById(R.id.btnDelete);
+		mBtnNewPayment.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mLlReceived.removeAllViews();
+				mTvGiveChange.setText("");
+			}
+		});
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.showSoftInput(mEdtAmount, InputMethodManager.SHOW_IMPLICIT);
+		mEdtAmount.addTextChangedListener(new Watcher());
 		mBtnAdd.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -76,6 +92,8 @@ public class CalculatorActivity extends Activity {
 						| InputType.TYPE_NUMBER_FLAG_DECIMAL);
 				mLlReceived.addView(newAmount);
 				newAmount.requestFocus();
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.showSoftInput(newAmount, InputMethodManager.SHOW_IMPLICIT);
 				newAmount.addTextChangedListener(new Watcher());
 			}
 		});

@@ -1,7 +1,8 @@
 <resources>
 
-    <string name="app_name">Calculator</string>
+    <string name="app_name">Rendu monnaie</string>
     <string name="amount_order">Montant de la commande</string>
 	<string name="amount_received">Montant reçu</string>
 	<string name="give_change">Rendu monnaie</string>
+	<string name="new_payment">Nouvel encaissement</string>
 </resources>
