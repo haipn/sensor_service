@@ -5,4 +5,5 @@
 	<string name="amount_received">Montant reçu</string>
 	<string name="give_change">Rendu monnaie</string>
 	<string name="new_payment">Nouvel encaissement</string>
+	<color name="red">#ff2529</color>
 </resources>
