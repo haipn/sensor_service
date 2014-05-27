@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.InputType;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -43,7 +44,7 @@ public class MyAlertDialogFragment extends DialogFragment {
 				| InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		InputMethodManager imm = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+		imm.showSoftInput(input, InputMethodManager.SHOW_FORCED);
 		alert.setView(input);
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {

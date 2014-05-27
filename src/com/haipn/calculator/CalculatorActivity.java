@@ -92,6 +92,9 @@ public class CalculatorActivity extends FragmentActivity implements
 			public void onClick(View v) {
 				DialogFragment dlgFrag = new MyAlertDialogFragment();
 				dlgFrag.show(getSupportFragmentManager(), "dialog");
+				
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.showSoftInput(mEdtAmount, InputMethodManager.SHOW_FORCED);
 				// newAmount.requestFocus();
 				// InputMethodManager imm = (InputMethodManager)
 				// getSystemService(Context.INPUT_METHOD_SERVICE);
